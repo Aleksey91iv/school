@@ -1,59 +1,47 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
+import ru.hogwarts.school.repositories.FacultiesRepository;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
 public class FacultyService
 {
-    private final Map<Long, Faculty> faculties;
-    private long idCounter;
+    @Autowired
+    private final FacultiesRepository facultiesRepository;
 
-    public FacultyService() {
-        this.faculties = new HashMap<Long, Faculty>();
+    public FacultyService(FacultiesRepository facultiesRepository) {
+        this.facultiesRepository = facultiesRepository;
     }
 
     public Faculty createFaculty(Faculty faculty) {
-        if (faculty.getName().isBlank()) {
-            return null;
-        }
-        faculty.setId(++idCounter);
-        faculties.put(idCounter, faculty);
-        return faculty;
+        return facultiesRepository.save(faculty);
     }
 
     public Faculty getFacultyById(Long id) {
-        if (faculties.containsKey(id)) {
-            return faculties.get(id);
-        }
-        return null;
+        return facultiesRepository.findById(id).get();
     }
 
     public Collection<Faculty> getFacultyByColor(String color) {
-        return faculties.values()
+        return facultiesRepository.findAll()
             .stream()
             .filter(f -> f.getColor().equals(color))
             .collect(Collectors.toSet());
     }
 
     public Collection<Faculty> getAllFaculties() {
-        return faculties.values();
+        return facultiesRepository.findAll();
     }
 
     public Faculty editFaculty(Faculty faculty) {
-        if (faculties.containsKey(faculty.getId())) {
-            faculties.put(faculty.getId(), faculty);
-            return faculty;
-        }
-        return null;
+        return facultiesRepository.save(faculty);
     }
 
-    public Faculty deleteFaculty(Long id) {
-        return faculties.remove(id);
+    public void deleteFaculty(Long id) {
+        facultiesRepository.deleteById(id);
     }
 }
