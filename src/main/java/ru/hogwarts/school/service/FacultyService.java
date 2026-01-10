@@ -6,12 +6,10 @@ import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.repositories.FacultiesRepository;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 @Service
 public class FacultyService
 {
-    @Autowired
     private final FacultiesRepository facultiesRepository;
 
     public FacultyService(FacultiesRepository facultiesRepository) {
