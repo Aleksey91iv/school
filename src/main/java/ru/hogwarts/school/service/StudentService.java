@@ -32,10 +32,7 @@ public class StudentService {
     }
 
     public Collection<Student> getStudentByAge(int age) {
-        return studentsRepository.findAll()
-            .stream()
-            .filter(s -> s.getAge() == age)
-            .collect(Collectors.toSet());
+        return studentsRepository.findAllByAge(age);
     }
 
     public Student editStudent(Student student) {
