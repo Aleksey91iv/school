@@ -1,11 +1,15 @@
 package ru.hogwarts.school.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.service.StudentService;
 
+import java.net.http.HttpClient;
 import java.util.Collection;
 
 @RestController
@@ -44,9 +48,30 @@ public class StudentController {
         return ResponseEntity.ok(returnedStudent);
     }
 
+    @GetMapping("/faculty/{id}")
+    public ResponseEntity<Faculty> getFacultyById(@PathVariable Long id)
+    {
+        Faculty returnedFaculty = studentService.getFaculty(id);
+        if (returnedFaculty == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(returnedFaculty);
+    }
+
     @GetMapping("/byAge/{age}")
-    public Collection<Student> getStudentByAge(@PathVariable int age) {
-        return studentService.getStudentByAge(age);
+    public ResponseEntity<Collection<Student>> getStudentByAge(@PathVariable int age) {
+        if (age < 0) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(studentService.getStudentByAge(age));
+    }
+
+    @GetMapping("/betweenage")
+    public ResponseEntity<Collection<Student>> getStudentByBetweenAge(@RequestParam int minAge, @RequestParam int maxAge) {
+        if (minAge < 0 || maxAge < 0 || maxAge < minAge) {
+            return ResponseEntity.badRequest().build();
+        }
+        return ResponseEntity.ok(studentService.getAllStudentBetweenAge(minAge, maxAge));
     }
 
     @PutMapping
