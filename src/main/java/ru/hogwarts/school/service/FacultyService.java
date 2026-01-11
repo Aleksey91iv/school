@@ -6,7 +6,6 @@ import ru.hogwarts.school.model.Student;
 import ru.hogwarts.school.repositories.FacultiesRepository;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Optional;
 
 @Service
