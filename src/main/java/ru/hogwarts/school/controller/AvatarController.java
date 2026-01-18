@@ -23,7 +23,7 @@ public class AvatarController {
     public ResponseEntity<String> uploadAvatar(
         @PathVariable Long id,
         @RequestParam MultipartFile avatar) throws IOException {
-        if (avatar.getSize() > 150 * 50) {
+        if (avatar.getSize() > 150 * 150) {
             return ResponseEntity.badRequest().body("File is too big");
         }
 
