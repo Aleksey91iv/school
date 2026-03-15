@@ -70,9 +70,9 @@ public class StudentController {
         return ResponseEntity.ok(studentService.getAllStudentBetweenAge(minAge, maxAge));
     }
 
-    @PutMapping
-    public ResponseEntity<Student> putStudent(@RequestBody Student student) {
-        Student returnedStudent = studentService.editStudent(student);
+    @PutMapping("/put")
+    public ResponseEntity<Student> putStudent(@RequestBody Student student, @RequestParam long id) {
+        Student returnedStudent = studentService.editStudent(student, id);
         if (returnedStudent == null) {
             return ResponseEntity.badRequest().build();
         }

@@ -46,8 +46,11 @@ public class StudentService {
         return null;
     }
 
-    public Student editStudent(Student student) {
-        return studentsRepository.save(student);
+    public Student editStudent(Student student, long id) {
+        Student updatingStudent = studentsRepository.getById(id);
+        updatingStudent.setName(student.getName());
+        updatingStudent.setAge(student.getAge());
+        return studentsRepository.save(updatingStudent);
     }
 
     public void deleteStudent(Long id) {
