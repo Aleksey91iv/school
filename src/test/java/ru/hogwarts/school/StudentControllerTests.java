@@ -43,7 +43,6 @@ public class StudentControllerTests {
         student.setAge(99);
         Student postResponse = this.restTemplate.postForObject("http://localhost:" + port +"/students", student, Student.class);
 
-
         Assertions.assertNotNull(postResponse);
         Assertions.assertTrue(postResponse.getName().equals(student.getName()));
         Assertions.assertSame(postResponse.getAge(), student.getAge());

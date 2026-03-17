@@ -46,7 +46,7 @@ public class StudentService {
         return null;
     }
 
-    public Student editStudent(Student student, long id) {
+    public Student editStudent(Student student, Long id) {
         Student updatingStudent = studentsRepository.getById(id);
         updatingStudent.setName(student.getName());
         updatingStudent.setAge(student.getAge());

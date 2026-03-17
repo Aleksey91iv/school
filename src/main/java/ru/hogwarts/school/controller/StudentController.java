@@ -71,7 +71,7 @@ public class StudentController {
     }
 
     @PutMapping("/put")
-    public ResponseEntity<Student> putStudent(@RequestBody Student student, @RequestParam long id) {
+    public ResponseEntity<Student> putStudent(@RequestBody Student student, @RequestParam Long id) {
         Student returnedStudent = studentService.editStudent(student, id);
         if (returnedStudent == null) {
             return ResponseEntity.badRequest().build();

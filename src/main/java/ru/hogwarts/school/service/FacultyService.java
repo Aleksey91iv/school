@@ -41,8 +41,12 @@ public class FacultyService
         return facultiesRepository.findAll();
     }
 
-    public Faculty editFaculty(Faculty faculty) {
-        return facultiesRepository.save(faculty);
+    public Faculty editFaculty(Faculty faculty, Long id) {
+        Faculty updatingFaculty = facultiesRepository.getById(id);
+        updatingFaculty.setName(faculty.getName());
+        updatingFaculty.setColor(faculty.getColor());
+        updatingFaculty.setStudents(faculty.getStudents());
+        return facultiesRepository.save(updatingFaculty);
     }
 
     public void deleteFaculty(Long id) {
