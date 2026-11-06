@@ -1,5 +1,6 @@
 package ru.hogwarts.school.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.hogwarts.school.model.Faculty;
 import ru.hogwarts.school.model.Student;
@@ -11,6 +12,7 @@ import java.util.Optional;
 @Service
 public class StudentService {
 
+    @Autowired
     private final StudentsRepository studentsRepository;
 
     public StudentService(StudentsRepository studentsRepository) {
