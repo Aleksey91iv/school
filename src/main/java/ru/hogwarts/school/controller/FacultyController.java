@@ -47,7 +47,7 @@ public class FacultyController {
     }
 
     @GetMapping("/students/{id}")
-    public ResponseEntity<Collection<Student>> getFacultyStudentsById(@PathVariable long id)
+    public ResponseEntity<Collection<Student>> getFacultyStudentsById(@PathVariable Long id)
     {
         Collection<Student> students = facultyService.getStudentsById(id);
         if (students == null) {
@@ -62,8 +62,8 @@ public class FacultyController {
     }
 
     @PutMapping
-    public ResponseEntity<Faculty> putFaculty(@RequestBody Faculty faculty) {
-        Faculty returnedFaculty = facultyService.editFaculty(faculty);
+    public ResponseEntity<Faculty> putFaculty(@RequestBody Faculty faculty, @RequestParam Long id) {
+        Faculty returnedFaculty = facultyService.editFaculty(faculty, id);
         if (returnedFaculty == null) {
             return ResponseEntity.badRequest().build();
         }
